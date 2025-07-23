@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import Layout from './components/Layout.jsx'
 import Home from './pages/Home.jsx'
 import Portfolio from './pages/Portfolio.jsx'
@@ -29,6 +29,7 @@ function App() {
 
       {/* Admin routes use AdminLayout */}
       <Route path="/admin" element={<AdminLayout />}>
+        <Route index element={<Navigate to="homepage" replace />} />
         <Route path="homepage" element={<HomepageAdmin />} />
         <Route path="portfolio" element={<PortfolioAdmin />} />
         <Route path="contact" element={<ContactInfoAdmin />} />
