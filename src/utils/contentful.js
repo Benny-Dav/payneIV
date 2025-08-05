@@ -232,7 +232,7 @@ export async function fetchAllSocialLinks() {
   });
   return entries.items.map(entry => ({
     id: entry.sys.id,
-    name: entry.fields.name,
+    name: entry.fields.platformName,
     url: entry.fields.url,
     iconImage: entry.fields.iconImage?.fields?.file?.url
       ? `https:${entry.fields.iconImage.fields.file.url}`
@@ -275,7 +275,7 @@ export async function updateSocialLink(entryId, fields) {
   const environment = await space.getEnvironment('master');
   const entry = await environment.getEntry(entryId);
 
-  entry.fields.name = { 'en-US': fields.name };
+  entry.fields.platformName = { 'en-US': fields.name };
   entry.fields.url = { 'en-US': fields.url };
   // For iconImage, you must pass the asset reference object
   if (fields.iconImage && fields.iconImage.sys && fields.iconImage.sys.id) {
