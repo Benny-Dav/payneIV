@@ -150,7 +150,7 @@ const Home = () => {
                       className="w-8 h-8"
                     />
                   )}
-                  <span>{link.name}</span>
+                  {/* <span>{link.name}</span> */}
                 </a>
               ))}
             </div>
