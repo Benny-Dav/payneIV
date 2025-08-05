@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import emailjs from '@emailjs/browser';
 import Modal from '../components/Modal';
 import SEO from '../components/SEO';
+import { fetchContactInfo } from '../utils/contentful';
 
 const BookSession = () => {
   const [formData, setFormData] = useState({
@@ -21,18 +22,20 @@ const BookSession = () => {
     type: '',
     message: ''
   });
+  const [contactInfo, setContactInfo] = useState(null);
+
+  useEffect(() => {
+    async function loadContactInfo() {
+      const data = await fetchContactInfo();
+      setContactInfo(data);
+    }
+    loadContactInfo();
+  }, []);
 
   const fadeIn = {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
     transition: { duration: 0.6 }
-  };
-
-  const contactInfo = {
-    email: "info@paynephotography.com",
-    phone: "+233 20 798 2088",
-    address: "Accra, Ghana",
-    availability: "Available Worldwide"
   };
 
   const socialLinks = [

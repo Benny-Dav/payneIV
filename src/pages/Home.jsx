@@ -124,6 +124,8 @@ const Home = () => {
                   {content.locationInfo}
                 </p>
               </motion.div>
+
+             
             </div>
           </footer>
 

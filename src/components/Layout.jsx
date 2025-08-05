@@ -1,11 +1,21 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import Navbar from './Navbar'
 import SchemaMarkup from './SchemaMarkup'
+import { fetchContactInfo } from '../utils/contentful'
 
 const Layout = () => {
   const location = useLocation()
   const isHomePage = location.pathname === '/'
+  const [contactInfo, setContactInfo] = useState(null)
+
+  useEffect(() => {
+    async function loadContactInfo() {
+      const data = await fetchContactInfo()
+      setContactInfo(data)
+    }
+    loadContactInfo()
+  }, [])
 
   return (
     <div className="min-h-screen flex flex-col font-inter text-primary bg-white">
@@ -37,11 +47,23 @@ const Layout = () => {
               </div>
               <div>
                 <h4 className="font-playfair text-lg mb-4">Contact</h4>
-                <div className="space-y-2 ">
-                  <p>info@paynephotography.com</p>
-                  <p>+1 (555) 123-4567</p>
+                <div className="space-y-2">
+                  {contactInfo ? (
+                    <>
+                      <p>{contactInfo.email}</p>
+                      <p>{contactInfo.phone}</p>
+                    </>
+                  ) : (
+                    <>
+                      <p>Loading...</p>
+                      <p>Loading...</p>
+                    </>
+                  )}
                 </div>
               </div>
+            </div>
+            <div className="mt-8 pt-8 border-t border-white/20">
+              <p className="text-sm text-gray-300 text-center">© Developed by Benedicta Davour</p>
             </div>
           </div>
         </footer>
